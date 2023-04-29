@@ -199,6 +199,9 @@ class ReverseGeocodingApi {
           case GeocoderPlaceType.POI:
             url += 'poi';
             break;
+          case GeocoderPlaceType.CITY:
+            url += 'city';
+            break;
           case GeocoderPlaceType.EMPTY:
             url += '';
             break;

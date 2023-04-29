@@ -13,6 +13,7 @@ enum GeocoderPlaceType {
   NEIGHBORHOOD,
   ADDRESS,
   POI,
+  CITY,
   EMPTY,
 }
 
@@ -269,6 +270,8 @@ class GeocoderFeature {
                 return GeocoderPlaceType.NEIGHBORHOOD;
               case 'address':
                 return GeocoderPlaceType.ADDRESS;
+              case 'city':
+                return GeocoderPlaceType.CITY;
               case 'poi':
                 return GeocoderPlaceType.POI;
             }

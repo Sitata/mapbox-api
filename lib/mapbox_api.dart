@@ -1,3 +1,5 @@
+import 'package:mapbox_api/src/search/search_box.dart';
+
 import './src/navigation/directions.dart';
 import './src/navigation/isochrome.dart';
 import './src/navigation/map_matching.dart';
@@ -32,6 +34,7 @@ const LONGITUDE = 1;
 class MapboxApi {
   MapboxApi({
     this.accessToken,
+    this.sessionToken,
   }) {
     directions = DirectionsApi(this);
     mapMatching = MapMatchingApi(this);
@@ -41,6 +44,7 @@ class MapboxApi {
     forwardGeocoding = ForwardGeocodingApi(this);
     reverseGeocoding = ReverseGeocodingApi(this);
     intersection = IntersectionApi(this);
+    searchBox = SearchBoxApi(this);
   }
 
   late DirectionsApi directions;
@@ -52,6 +56,8 @@ class MapboxApi {
   late ForwardGeocodingApi forwardGeocoding;
   late ReverseGeocodingApi reverseGeocoding;
   late IntersectionApi intersection;
+  late SearchBoxApi searchBox;
 
   String? accessToken;
+  String? sessionToken;
 }
