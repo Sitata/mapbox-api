@@ -1,5 +1,5 @@
 import 'package:mapbox_api/src/models/suggestion.dart';
-import 'package:mapbox_api/src/models/suggestion_error.dart';
+import 'package:mapbox_api/src/models/mapbox_api_error.dart';
 
 class SuggestionApiResponse {
   String? attribution;
@@ -20,7 +20,7 @@ class SuggestionApiResponse {
     final _message = json['message'] as String?;
 
     if (_message != null) {
-      error = SuggestionError(message: _message);
+      error = MapBoxApiError(message: _message);
     } else {
       attribution = json['attribution'] as String?;
       suggestions = json.containsKey('suggestions')

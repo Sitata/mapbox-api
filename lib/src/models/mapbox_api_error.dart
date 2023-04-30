@@ -1,11 +1,11 @@
-class SuggestionError extends Error {
-  SuggestionError({
+class MapBoxApiError extends Error {
+  MapBoxApiError({
     this.message,
   });
 
   @override
   String toString() {
-    return 'SuggestionError{'
+    return 'MapBoxApiError{'
         'message: $message, '
         '}';
   }

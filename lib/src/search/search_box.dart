@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart';
-import 'package:mapbox_api/src/suggestion/suggestion_api_response.dart';
+import 'package:mapbox_api/src/search/retrieve_api_response.dart';
+import 'package:mapbox_api/src/search/suggestion_api_response.dart';
 import 'package:mapbox_api/src/utils/languages.dart';
 
 import '../../mapbox_api.dart';
@@ -16,6 +17,7 @@ class SearchBoxApi {
   String endpoint;
   MapboxApi api;
   late SearchBoxSuggest suggest;
+  late SearchBoxRetrieve retrieve;
 
   SearchBoxApi(
     this.api, {
@@ -23,6 +25,7 @@ class SearchBoxApi {
     this.endpoint = 'https://api.mapbox.com/search/searchbox',
   }) {
     suggest = SearchBoxSuggest(api, version: version, endpoint: endpoint);
+    retrieve = SearchBoxRetrieve(api, version: version, endpoint: endpoint);
   }
 }
 
@@ -145,5 +148,32 @@ class SearchBoxSuggest {
       }
     }
     return typesStr.join(',');
+  }
+}
+
+class SearchBoxRetrieve {
+  String version;
+  String endpoint;
+  MapboxApi api;
+
+  SearchBoxRetrieve(
+    this.api, {
+    required this.version,
+    required this.endpoint,
+  });
+
+  Future<RetrieveApiResponse> request({required String id}) async {
+    var url = '$endpoint/$version/retrieve/$id';
+
+    url += '?access_token=${api.accessToken}&session_token=${api.sessionToken}';
+    try {
+      final response = await get(Uri.parse(url));
+      final json = jsonDecode(
+        response.body,
+      ) as Map<String, dynamic>;
+      return RetrieveApiResponse.fromJson(json);
+    } on Error catch (error) {
+      return RetrieveApiResponse.withError(error);
+    }
   }
 }
