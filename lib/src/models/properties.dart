@@ -16,9 +16,9 @@ class Properties {
   String? maki;
   List<String>? poiCategory;
   List<String>? poiCategoryIds;
-  String? brand;
-  String? brandId;
-  Map<String, dynamic>? externalIds; // not sure why it's a map...
+  List<String>? brand;
+  List<String>? brandId;
+  Map<String, String>? externalIds;
   Map<String, dynamic>? metadata;
 
   Properties.fromJson(Map<String, dynamic> json) {
@@ -44,9 +44,11 @@ class Properties {
     poiCategoryIds = (json['poi_category_ids'] as List<dynamic>?)
         ?.map((e) => e as String)
         .toList();
-    brand = json['brand'];
-    brandId = json['brand_id'];
-    externalIds = json['external_ids'] as Map<String, dynamic>?;
+    brand = (json['brand'] as List<dynamic>?)?.map((e) => e as String).toList();
+    brandId =
+        (json['brandId'] as List<dynamic>?)?.map((e) => e as String).toList();
+    externalIds = (json['external_ids'] as Map<String, dynamic>?)
+        ?.map((key, value) => MapEntry(key, value.toString()));
     metadata = json['metadata'] as Map<String, dynamic>?;
   }
 }
