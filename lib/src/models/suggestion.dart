@@ -15,9 +15,9 @@ class Suggestion {
   String? maki;
   List<String>? poiCategory;
   List<String>? poiCategoryIds;
-  String? brand;
-  String? brandId;
-  List<String>? externalIds;
+  List<String>? brand;
+  List<String>? brandId;
+  Map<String, String>? externalIds;
   Map<String, dynamic>? metadata;
   double? distance;
   double? eta;
@@ -39,15 +39,19 @@ class Suggestion {
     language = json['language'];
     maki = json['maki'];
 
-    poiCategory = json['poi_category'];
-
-    poiCategoryIds = json['poi_category_ids'];
-
-    brand = json['brand'];
-    brandId = json['brandId'];
-    externalIds = (json['upgrade_product_ids'] as List<dynamic>?)
+    poiCategory = (json['poi_category'] as List<dynamic>?)
         ?.map((e) => e as String)
         .toList();
+
+    poiCategoryIds = (json['poi_category_ids'] as List<dynamic>?)
+        ?.map((e) => e as String)
+        .toList();
+
+    brand = (json['brand'] as List<dynamic>?)?.map((e) => e as String).toList();
+    brandId =
+        (json['brandId'] as List<dynamic>?)?.map((e) => e as String).toList();
+    externalIds = (json['external_ids'] as Map<String, dynamic>?)
+        ?.map((key, value) => MapEntry(key, value.toString()));
     metadata = json['metadata'] as Map<String, dynamic>?;
     eta = json['eta'];
     addedDistance = json['added_distance'];
